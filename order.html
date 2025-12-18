@@ -1,123 +1,211 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Order - Dimsum Regar</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Order Dimsum Regar</title>
+
   <script src="https://cdn.tailwindcss.com?plugins=forms"></script>
   <link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@400;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-</head>
 
-<body class="font-[Work Sans] bg-[#fffaf5] text-gray-800">
+  <style>
+    * { transition: all 0.3s ease; }
+    .fade-in { animation: fadeInUp 0.8s ease forwards; }
 
-  <!-- Header -->
-  <header class="bg-amber-700 text-white shadow-md">
-    <div class="container mx-auto flex justify-between items-center px-4 py-4">
-      <h1 class="text-2xl font-bold">Dimsum Regar</h1>
-      <a href="index.html" class="text-white hover:text-yellow-300 font-medium">
-        <i class="fa-solid fa-arrow-left mr-1"></i> Kembali ke Beranda
-      </a>
-    </div>
-  </header>
-
-  <!-- Hero -->
-  <section class="text-center py-8 bg-amber-50">
-    <h2 class="text-3xl font-bold text-amber-800">Form Pemesanan Dimsum</h2>
-    <p class="text-gray-600 mt-2">Isi data di bawah ini untuk memesan langsung via WhatsApp 🍱</p>
-  </section>
-
-  <!-- Form -->
-  <section class="max-w-3xl mx-auto bg-white shadow-lg rounded-2xl p-8 my-8">
-    <form id="orderForm" class="space-y-6">
-      <!-- Nama -->
-      <div>
-        <label for="nama" class="block font-semibold mb-1">Nama Pemesan</label>
-        <input type="text" id="nama" name="nama" required
-               class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-amber-400 outline-none">
-      </div>
-
-      <!-- Alamat -->
-      <div>
-        <label for="alamat" class="block font-semibold mb-1">Alamat Pengantaran</label>
-        <textarea id="alamat" name="alamat" rows="3" required
-                  class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-amber-400 outline-none"></textarea>
-      </div>
-
-      <!-- Menu -->
-      <div>
-        <label for="menu" class="block font-semibold mb-1">Pilih Menu</label>
-        <select id="menu" name="menu" required
-                class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-amber-400 outline-none">
-          <option value="">-- Pilih Menu Dimsum --</option>
-          <option value="Dimsum Siomay Ayam">Dimsum Siomay Ayam - Rp15.000</option>
-          <option value="Dimsum Metai">Dimsum Metai - Rp18.000</option>
-          <option value="Dimsum Crabstick">Dimsum Crabstick - Rp17.000</option>
-          <option value="Dimsum Nori">Dimsum Nori - Rp20.000</option>
-          <option value="Dimsum Mozarella">Dimsum Mozarella - Rp22.000</option>
-        </select>
-      </div>
-
-      <!-- Jumlah -->
-      <div>
-        <label for="jumlah" class="block font-semibold mb-1">Jumlah Pesanan</label>
-        <input type="number" id="jumlah" name="jumlah" min="1" required
-               class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-amber-400 outline-none">
-      </div>
-
-      <!-- Pembayaran -->
-      <div>
-        <label for="pembayaran" class="block font-semibold mb-1">Metode Pembayaran</label>
-        <select id="pembayaran" name="pembayaran" required
-                class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-amber-400 outline-none">
-          <option value="">-- Pilih Metode Pembayaran --</option>
-          <option value="Transfer Bank (BCA/BNI/Mandiri)">Transfer Bank (BCA / BNI / Mandiri)</option>
-          <option value="E-Wallet (DANA/OVO/GoPay)">E-Wallet (DANA / OVO / GoPay)</option>
-          <option value="QRIS">QRIS</option>
-          <option value="COD (Bayar di Tempat)">COD (Bayar di Tempat)</option>
-        </select>
-      </div>
-
-      <!-- Tombol -->
-      <button type="submit" 
-              class="w-full bg-green-500 hover:bg-green-600 text-white font-semibold py-3 rounded-full text-lg shadow-md transition">
-        <i class="fab fa-whatsapp mr-2"></i> Pesan Sekarang via WhatsApp
-      </button>
-    </form>
-  </section>
-
-  <!-- Footer -->
-  <footer class="bg-amber-700 text-white text-center py-4">
-    <p>© 2025 Dimsum Regar. Semua Hak Dilindungi.</p>
-  </footer>
-
-  <!-- Script -->
-  <script>
-    // Auto-select menu dari URL
-    const urlParams = new URLSearchParams(window.location.search);
-    const menuTerpilih = urlParams.get("menu");
-    if (menuTerpilih) {
-      const selectMenu = document.getElementById("menu");
-      selectMenu.value = menuTerpilih;
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
     }
 
-    // Kirim ke WhatsApp
-    document.getElementById("orderForm").addEventListener("submit", function (e) {
-      e.preventDefault();
+    .menu-card:hover {
+      transform: scale(1.03);
+      box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+      border-color: #f59e0b;
+    }
 
-      const nama = document.getElementById("nama").value;
-      const alamat = document.getElementById("alamat").value;
-      const menu = document.getElementById("menu").value;
-      const jumlah = document.getElementById("jumlah").value;
-      const pembayaran = document.getElementById("pembayaran").value;
+    .btn-pulse { animation: pulse 2s infinite; }
 
-      const nomorWA = "6281386360409"; // ganti nomor kamu
+    @keyframes pulse {
+      0% { box-shadow: 0 0 0 0 rgba(34,197,94,0.6); }
+      70% { box-shadow: 0 0 0 15px rgba(34,197,94,0); }
+      100% { box-shadow: 0 0 0 0 rgba(34,197,94,0); }
+    }
 
-      const pesan = `Halo Dimsum Regar! 🍽️\n\nSaya ingin memesan:\n\n👤 Nama: ${nama}\n🏠 Alamat: ${alamat}\n🍱 Menu: ${menu}\n🔢 Jumlah: ${jumlah}\n💳 Pembayaran: ${pembayaran}\n\nTerima kasih! 🙏`;
-      const waLink = `https://wa.me/${nomorWA}?text=${encodeURIComponent(pesan)}`;
+    .slide-down { animation: slideDown 0.5s ease forwards; }
+    .slide-up { animation: slideUp 0.4s ease forwards; }
 
-      window.open(waLink, "_blank");
-    });
-  </script>
+    @keyframes slideDown {
+      from { opacity: 0; transform: translateY(-20px); max-height: 0; }
+      to { opacity: 1; transform: translateY(0); max-height: 300px; }
+    }
+
+    @keyframes slideUp {
+      from { opacity: 1; transform: translateY(0); max-height: 300px; }
+      to { opacity: 0; transform: translateY(-20px); max-height: 0; }
+    }
+  </style>
+</head>
+
+<body class="font-[Work Sans] bg-gradient-to-br from-amber-50 to-orange-100 min-h-screen text-gray-800">
+
+<header class="bg-amber-700 text-white shadow-lg fade-in">
+  <div class="max-w-5xl mx-auto flex justify-between items-center px-6 py-4">
+    <h1 class="text-2xl font-bold">Dimsum Regar</h1>
+    <a href="index.html" class="hover:text-yellow-300 font-medium">
+      <i class="fa-solid fa-arrow-left mr-1"></i>Kembali
+    </a>
+  </div>
+</header>
+
+<section class="text-center py-10 fade-in">
+  <h2 class="text-3xl font-bold text-amber-800">Form Pemesanan</h2>
+  <p class="text-gray-600 mt-2">Pesan dimsum favoritmu via WhatsApp 🍱</p>
+</section>
+
+<section class="max-w-4xl mx-auto bg-white shadow-2xl rounded-3xl p-8 mb-12 fade-in">
+<form id="orderForm" class="space-y-8">
+
+<div class="grid md:grid-cols-2 gap-6">
+  <div>
+    <label class="font-semibold">Nama</label>
+    <input id="nama" required class="w-full mt-1 border rounded-xl px-4 py-3">
+  </div>
+  <div>
+    <label class="font-semibold">Alamat</label>
+    <input id="alamat" required class="w-full mt-1 border rounded-xl px-4 py-3">
+  </div>
+</div>
+
+<h3 class="font-bold text-lg text-amber-700">🍽️ Pilih Menu</h3>
+
+<div class="grid sm:grid-cols-2 gap-4">
+
+  <div class="border rounded-2xl p-4 flex justify-between items-center menu-card">
+    <label class="flex items-center gap-2">
+      <input type="checkbox" class="menu" data-nama="Siomay Ayam" data-harga="15000">
+      <span class="font-semibold">Siomay Ayam</span>
+    </label>
+    <input type="number" min="1" value="1" class="qty w-16 border rounded-lg px-2 py-1">
+  </div>
+
+  <div class="border rounded-2xl p-4 flex justify-between items-center menu-card">
+    <label class="flex items-center gap-2">
+      <input type="checkbox" class="menu" data-nama="Metai" data-harga="18000">
+      <span class="font-semibold">Metai</span>
+    </label>
+    <input type="number" min="1" value="1" class="qty w-16 border rounded-lg px-2 py-1">
+  </div>
+
+  <div class="border rounded-2xl p-4 flex justify-between items-center menu-card">
+    <label class="flex items-center gap-2">
+      <input type="checkbox" class="menu" data-nama="Crabstick" data-harga="17000">
+      <span class="font-semibold">Crabstick</span>
+    </label>
+    <input type="number" min="1" value="1" class="qty w-16 border rounded-lg px-2 py-1">
+  </div>
+
+  <div class="border rounded-2xl p-4 flex justify-between items-center menu-card">
+    <label class="flex items-center gap-2">
+      <input type="checkbox" class="menu" data-nama="Nori" data-harga="20000">
+      <span class="font-semibold">Nori</span>
+    </label>
+    <input type="number" min="1" value="1" class="qty w-16 border rounded-lg px-2 py-1">
+  </div>
+
+</div>
+
+<div class="bg-amber-50 rounded-2xl p-6 space-y-4">
+  <input id="total" readonly placeholder="Total Belanja" class="w-full bg-white border rounded-xl px-4 py-3 font-bold text-amber-700">
+
+  <select id="pembayaran" class="w-full border rounded-xl px-4 py-3">
+    <option value="">-- Pilih Pembayaran --</option>
+    <option>GoPay</option>
+    <option>DANA</option>
+    <option>OVO</option>
+    <option>ShopeePay</option>
+    <option>QRIS</option>
+    <option>COD</option>
+  </select>
+
+  <div id="qrisBox" class="hidden text-center">
+    <p class="font-semibold mb-2">Scan QRIS</p>
+    <img src="img/qris.jpeg" alt="QRIS Dimsum Regar"
+      class="mx-auto w-40 rounded-xl shadow">
+  </div>
+</div>
+
+<button type="submit" class="w-full bg-green-500 hover:bg-green-600 text-white py-4 rounded-full font-semibold text-lg btn-pulse">
+  <i class="fab fa-whatsapp mr-2"></i>Pesan Sekarang
+</button>
+
+</form>
+</section>
+
+<script>
+const menus = document.querySelectorAll(".menu");
+const qtys = document.querySelectorAll(".qty");
+const total = document.getElementById("total");
+const pembayaran = document.getElementById("pembayaran");
+const qrisBox = document.getElementById("qrisBox");
+
+function hitungTotal() {
+  let sum = 0;
+  menus.forEach((m, i) => {
+    if (m.checked) sum += m.dataset.harga * qtys[i].value;
+  });
+  total.value = sum ? "Rp " + sum.toLocaleString("id-ID") : "";
+}
+
+menus.forEach((m, i) => {
+  m.addEventListener("change", () => {
+    hitungTotal();
+  });
+});
+
+qtys.forEach((q, i) => {
+  q.addEventListener("input", () => {
+    if (q.value > 0) menus[i].checked = true;
+    hitungTotal();
+  });
+});
+
+pembayaran.addEventListener("change", () => {
+  if (pembayaran.value === "QRIS") {
+    qrisBox.classList.remove("hidden");
+  } else {
+    qrisBox.classList.add("hidden");
+  }
+});
+
+/* === TAMBAHAN WA (TANPA UBAH KODE ASLI) === */
+document.getElementById("orderForm").addEventListener("submit", function(e) {
+  e.preventDefault();
+
+  let pesanMenu = "";
+  let totalHarga = 0;
+
+  menus.forEach((m, i) => {
+    if (m.checked) {
+      let qty = qtys[i].value;
+      let harga = m.dataset.harga * qty;
+      totalHarga += harga;
+      pesanMenu += `- ${m.dataset.nama} x${qty}%0A`;
+    }
+  });
+
+  let pesan =
+`Halo Dimsum Regar 👋%0A
+Nama: ${nama.value}%0A
+Alamat: ${alamat.value}%0A
+%0APesanan:%0A${pesanMenu}
+Total: Rp ${totalHarga.toLocaleString("id-ID")}%0A
+Pembayaran: ${pembayaran.value}`;
+
+  let nomorWA = "6281386360409";
+  window.open(`https://wa.me/${nomorWA}?text=${pesan}`, "_blank");
+});
+</script>
+
 </body>
 </html>
